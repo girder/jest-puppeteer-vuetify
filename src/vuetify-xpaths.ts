@@ -112,19 +112,19 @@ function defaultParam<T>(vFunction: (args: T) => XPath, defaultParam: keyof T) {
 
 
 function _vAvatar({ content, cssClass }: { content?: Strings, cssClass?: Strings }): XPath {
-  return `//div${classAsPredicate('v-avatar', cssClass)}[span${contentAsPredicate(content)}]`;
+  return `//*${classAsPredicate('v-avatar', cssClass)}[*${contentAsPredicate(content)}]`;
 }
 export const vAvatar = defaultParam(_vAvatar, 'content');
 
 
 function _vBtn({ content, cssClass }: { content?: Strings, cssClass?: Strings }): XPath {
-  return `//*${classAsPredicate('v-btn', cssClass)}[span${contentAsPredicate(content)}]`;
+  return `//*${classAsPredicate('v-btn', cssClass)}[*${contentAsPredicate(content)}]`;
 }
 export const vBtn = defaultParam(_vBtn, 'content');
 
 
 function _vCard({ content, cssClass, title, actions }: { content?: Strings, cssClass?: Strings, title?: Strings, actions?: Strings }): XPath {
-  return `//div${classAsPredicate('v-card', cssClass)}${elementsAsPredicate('v-card', { title, actions })}${contentAsPredicate(content)}`;
+  return `//*${classAsPredicate('v-card', cssClass)}${elementsAsPredicate('v-card', { title, actions })}${contentAsPredicate(content)}`;
 }
 export const vCard = defaultParam(_vCard, 'content');
 
@@ -150,20 +150,20 @@ export const vListItem = defaultParam(_vListItem, 'content');
 
 
 function _vListItemTitle({ content, cssClass }: { content?: Strings, cssClass?: Strings }): XPath {
-  return `//div${classAsPredicate('v-list-item__title', cssClass)}${contentAsPredicate(content)}`;
+  return `//*${classAsPredicate('v-list-item__title', cssClass)}${contentAsPredicate(content)}`;
 }
 export const vListItemTitle = defaultParam(_vListItemTitle, 'content');
 
 
 function _vTextarea({ label, cssClass }: { label?: Strings, cssClass?: Strings }): XPath {
-  return `//div${classAsPredicate('v-textarea', cssClass)}//div[label[contains(text(),"${label}")]]//textarea`;
+  return `//*${classAsPredicate('v-textarea', cssClass)}//*[label[contains(text(),"${label}")]]//textarea`;
 }
 export const vTextarea = defaultParam(_vTextarea, 'label');
 
 
 function _vTextField({ label, cssClass }: { label?: Strings, cssClass?: Strings }): XPath {
-  const labelPredicate = (label) ? `[.//div[label[contains(text(),"${label}")]]]` : '';
-  return `//div${classAsPredicate('v-text-field', cssClass)}${labelPredicate}//input`;
+  const labelPredicate = (label) ? `[.//*[label[contains(text(),"${label}")]]]` : '';
+  return `//*${classAsPredicate('v-text-field', cssClass)}${labelPredicate}//input`;
 }
 export const vTextField = defaultParam(_vTextField, 'label');
 
