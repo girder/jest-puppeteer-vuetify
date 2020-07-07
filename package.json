@@ -4,6 +4,7 @@
   "description": "Test utilities to make locating Vuetify components easier",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint --ext ts src/",
     "build": "tsc"
   },
   "dependencies": {
@@ -12,9 +13,30 @@
   },
   "devDependencies": {
     "@types/puppeteer": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "eslint": "^7.4.0",
+    "eslint-plugin-import": "^2.22.0",
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
     "jest": "*"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "es6": true
+    },
+    "extends": [
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 11,
+      "sourceType": "module"
+    }
   }
 }
