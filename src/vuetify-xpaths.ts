@@ -1,7 +1,7 @@
 import { XPath, Strings, contentAsPredicate, classAsPredicate, elementsAsPredicate, defaultParam } from './vuetify-xpath-helpers';
 
-function _vAvatar({ content, cssClass }: { content?: Strings, cssClass?: Strings }): XPath {
-  return `//*${classAsPredicate('v-avatar', cssClass)}[*${contentAsPredicate(content)}]`;
+function _vAvatar({ content, cssClass }: { content?: Strings, cssClass?: Strings}): XPath {
+  return `//*${classAsPredicate('v-avatar', cssClass)}${contentAsPredicate(content)}`;
 }
 export const vAvatar = defaultParam(_vAvatar, 'content');
 

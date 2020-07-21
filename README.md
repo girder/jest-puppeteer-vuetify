@@ -9,6 +9,22 @@ yarn
 yarn run build
 ```
 
+## Testing
+A Vuetify application, `jest-puppeteer-vuetify-test`, is included which serves various Vuetify components for testing purposes.
+It must be running before tests can be run:
+```
+cd jest-puppeteer-vuetify-test
+yarn
+yarn serve
+```
+Once `jest-puppeteer-vuetify-test` is running, tests can be run:
+```
+# Headless mode
+yarn run test
+# Browser popup, extended jest test timeout
+yarn run test-debug
+```
+
 ## jest-xpaths
 Puppeteer and `expect-puppeteer` prefer using CSS selectors whenever possible.
 They do have some support for XPath locators, but they cannot be used for everything that CSS selectors can be used for.

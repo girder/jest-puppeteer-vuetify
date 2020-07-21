@@ -28,7 +28,7 @@ export function contentAsPredicate(content?: Strings): Predicate {
     if (isXPath(content)) {
       return `[.${content}]`;
     }
-    return `[contains(text(),"${content}")]`;
+    return `[contains(.,"${content}")]`;
   }
   return '';
 }
