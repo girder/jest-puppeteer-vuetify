@@ -86,3 +86,5 @@
         - lint
         - build
         - test
+            requires:
+              - build
