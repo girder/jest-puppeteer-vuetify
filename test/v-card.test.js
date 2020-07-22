@@ -14,6 +14,7 @@ describe('v-card', () => {
     await expect(page).toContainXPath(vCard('text'));
     await expect(page).toContainXPath(vCard('actions'));
     await expect(page).toContainXPath(vCard('content'));
+    await expect(page).toContainXPath(vCard({ content: 'content' }));
   });
   it('class', async () => {
     await expect(page).toContainXPath(vCard({ cssClass: 'test' }));

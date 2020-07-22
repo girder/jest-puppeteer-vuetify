@@ -10,6 +10,7 @@ describe('v-avatar', () => {
   });
   it('content', async () => {
     await expect(page).toContainXPath(vAvatar('AB'));
+    await expect(page).toContainXPath(vAvatar({ content: 'AB' }));
   });
   it('class', async () => {
     await expect(page).toContainXPath(vAvatar({ cssClass: 'test' }));

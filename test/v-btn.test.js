@@ -10,6 +10,7 @@ describe('v-btn', () => {
   });
   it('content', async () => {
     await expect(page).toContainXPath(vBtn('button'));
+    await expect(page).toContainXPath(vBtn({ content: 'button' }));
   });
   it('class', async () => {
     await expect(page).toContainXPath(vBtn({ cssClass: 'test' }));
