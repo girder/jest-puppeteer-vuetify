@@ -80,6 +80,27 @@ export function elementsAsPredicate<T extends { [key: string]: Strings }>(name: 
 }
 
 /**
+ * Generates a predicate for a togglable value (tile, disabled, etc.).
+ * If the `toggleValue` is undefined, an empty string is returned.
+ * If true, `trueExpression` is returned as a predicate.
+ * IF false, `falseExpression` is returned as a predicate.
+ * 
+ * @param toggleValue the toggle value to be tested.
+ * @param trueExpression the expected expression to use if toggleValue is true.
+ * @param falseExpression the expected expression to use if toggleValue is false.
+ */
+export function togglePredicate(toggleValue: boolean | undefined, trueExpression: string, falseExpression: string): Predicate {
+  if (toggleValue === undefined) {
+    return '';
+  }
+  if (toggleValue) {
+    return `[${trueExpression}]`;
+  } else {
+    return `[${falseExpression}]`;
+  }
+}
+
+/**
  * Parses the argument to a wrapped vElement function.
  * If the argument is an object, it is passed directly to the wrapped function as destructured arguments.
  * Otherwise, the argument is wrapped in an object, keyed by a default parameter.

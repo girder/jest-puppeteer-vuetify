@@ -1,4 +1,4 @@
-import { XPath, Strings, contentAsPredicate, classAsPredicate, elementsAsPredicate, defaultParam } from './vuetify-xpath-helpers';
+import { XPath, Strings, contentAsPredicate, classAsPredicate, elementsAsPredicate, togglePredicate, defaultParam } from './vuetify-xpath-helpers';
 
 function _vAvatar({ content, cssClass }: { content?: Strings, cssClass?: Strings}): XPath {
   return `//*${classAsPredicate('v-avatar', cssClass)}${contentAsPredicate(content)}`;
@@ -6,14 +6,29 @@ function _vAvatar({ content, cssClass }: { content?: Strings, cssClass?: Strings
 export const vAvatar = defaultParam(_vAvatar, 'content');
 
 
-function _vBtn({ content, cssClass }: { content?: Strings, cssClass?: Strings }): XPath {
-  return `//*${classAsPredicate('v-btn', cssClass)}[*${contentAsPredicate(content)}]`;
+function _vBtn({ content, cssClass, disabled }: { content?: Strings, cssClass?: Strings, disabled?: boolean }): XPath {
+  const disabledPredicate = togglePredicate(disabled, '@disabled="disabled"', 'not(@disabled)');
+  return `//*${classAsPredicate('v-btn', cssClass)}${contentAsPredicate(content)}${disabledPredicate}`;
 }
 export const vBtn = defaultParam(_vBtn, 'content');
 
 
-function _vCard({ content, cssClass, title, actions }: { content?: Strings, cssClass?: Strings, title?: Strings, actions?: Strings }): XPath {
-  return `//*${classAsPredicate('v-card', cssClass)}${elementsAsPredicate('v-card', { title, actions })}${contentAsPredicate(content)}`;
+function _vCard({
+    content,
+    cssClass,
+    title,
+    subtitle,
+    text,
+    actions
+  }: {
+    content?: Strings,
+    cssClass?: Strings,
+    title?: Strings,
+    subtitle?: Strings, 
+    text?: Strings,
+    actions?: Strings
+  }): XPath {
+  return `//*${classAsPredicate('v-card', cssClass)}${elementsAsPredicate('v-card', { title, subtitle, text, actions })}${contentAsPredicate(content)}`;
 }
 export const vCard = defaultParam(_vCard, 'content');
 

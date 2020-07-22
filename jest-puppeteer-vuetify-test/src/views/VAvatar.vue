@@ -5,6 +5,7 @@
     </v-avatar>
     <v-avatar
       color="green"
+      class="test"
       tile
     >
       <span>CD</span>

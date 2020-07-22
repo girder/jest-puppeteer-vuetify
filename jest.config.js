@@ -15,5 +15,5 @@ module.exports = {
   ],
 
   // extend test timeout to 1 hour when debugging
-  testTimeout: (process.env.DEBUG === 'true') ? 3600000 : 180000,
+  testTimeout: (process.env.DEBUG === 'true') ? 3600000 : 10000,
 };
