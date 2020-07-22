@@ -21,8 +21,8 @@
             paths:
               - ~/.cache/yarn
         - run:
-          name: Build project
-          command: yarn run build
+            name: Build project
+            command: yarn run build
     test:
       docker:
         - image: circleci/node:12-browsers
@@ -47,10 +47,10 @@
             paths:
               - ~/.cache/yarn
         - run:
-          name: Run test app
-          working_directory: ./jest-puppeteer-vuetify-test
-          command: yarn run serve
-          background: true
+            name: Run test app
+            working_directory: ./jest-puppeteer-vuetify-test
+            command: yarn run serve
+            background: true
         - run:
             name: Build project
             command: yarn run build
