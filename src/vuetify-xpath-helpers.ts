@@ -8,7 +8,6 @@ export function isXPath(text: string): boolean {
   return xpathRegex.test(text);
 }
 
-
 /**
  * Formats an argument into one or more XPath predicates.
  * If the argument is a valid XPath, then the predicate will match all elements that contain the
@@ -75,7 +74,10 @@ export function elementAsPredicate(name: string, element: string, value: Strings
  * @param name the name of the Vuetify component
  * @param values the contents of each element
  */
-export function elementsAsPredicate<T extends { [key: string]: Strings }>(name: string, values: T): Predicate {
+export function elementsAsPredicate<T extends { [key: string]: Strings }>(
+  name: string,
+  values: T,
+): Predicate {
   return Object.keys(values).map((key) => elementAsPredicate(name, key, values[key])).join('');
 }
 
@@ -84,25 +86,29 @@ export function elementsAsPredicate<T extends { [key: string]: Strings }>(name: 
  * If the `toggleValue` is undefined, an empty string is returned.
  * If true, `trueExpression` is returned as a predicate.
  * IF false, `falseExpression` is returned as a predicate.
- * 
+ *
  * @param toggleValue the toggle value to be tested.
  * @param trueExpression the expected expression to use if toggleValue is true.
  * @param falseExpression the expected expression to use if toggleValue is false.
  */
-export function togglePredicate(toggleValue: boolean | undefined, trueExpression: string, falseExpression: string): Predicate {
+export function togglePredicate(
+  toggleValue: boolean | undefined,
+  trueExpression: string,
+  falseExpression: string,
+): Predicate {
   if (toggleValue === undefined) {
     return '';
   }
   if (toggleValue) {
     return `[${trueExpression}]`;
-  } else {
-    return `[${falseExpression}]`;
   }
+  return `[${falseExpression}]`;
 }
 
 /**
  * Parses the argument to a wrapped vElement function.
- * If the argument is an object, it is passed directly to the wrapped function as destructured arguments.
+ * If the argument is an object, it is passed directly to the wrapped function as destructured
+ * arguments.
  * Otherwise, the argument is wrapped in an object, keyed by a default parameter.
  *
  * For this example function definition:
@@ -118,16 +124,19 @@ export function togglePredicate(toggleValue: boolean | undefined, trueExpression
  * vFoo({cssClass: 'test'}) => vFoo({cssClass: 'test'}) // no change
  *
  * @param vFunction the XPath generator function to wrap
- * @param defaultParam the name of the default parameter to use
+ * @param param the name of the default parameter to use
  */
-export function defaultParam<T>(vFunction: (args: T) => XPath, defaultParam: keyof T) {
-  return function (args?: T | Strings): XPath {
+export function defaultParam<T>(
+  vFunction: (args: T) => XPath,
+  param: keyof T,
+) {
+  return (args?: T | Strings): XPath => {
     if (typeof args === 'object' && !Array.isArray(args)) {
       return vFunction(args);
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ret: any = {};
-    ret[defaultParam] = args;
+    ret[param] = args;
     return vFunction(ret);
   };
 }

@@ -1,6 +1,5 @@
-import { testComponent } from './utils.js';
+import { testComponent } from './utils';
 import { vCard, vBtn } from '../lib/vuetify-xpaths';
-
 
 describe('v-card', () => {
   beforeAll(() => {

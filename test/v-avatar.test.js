@@ -1,6 +1,5 @@
-import { testComponent } from './utils.js';
+import { testComponent } from './utils';
 import { vAvatar } from '../lib/vuetify-xpaths';
-
 
 describe('v-avatar', () => {
   beforeAll(() => {

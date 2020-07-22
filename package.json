@@ -4,7 +4,7 @@
   "description": "Test utilities to make locating Vuetify components easier",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint --ext ts src/",
+    "lint": "eslint src/ test/",
     "build": "tsc",
     "test": "jest --runInBand",
     "test-debug": "DEBUG=true jest --runInBand"
@@ -24,7 +24,10 @@
     "@vue/cli-plugin-router": "~4.4.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-airbnb-typescript": "^9.0.0",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.18.0",
     "jest": "^26.1.0",
     "jest-puppeteer": "^4.4.0",
     "typescript": "^3.9.5"
@@ -34,19 +37,44 @@
   },
   "eslintConfig": {
     "root": true,
-    "env": {
-      "es6": true
-    },
     "extends": [
-      "plugin:@typescript-eslint/recommended"
+      "airbnb-base"
     ],
-    "parser": "@typescript-eslint/parser",
+    "parser": "babel-eslint",
     "plugins": [
-      "@typescript-eslint"
+      "jest"
     ],
-    "parserOptions": {
-      "ecmaVersion": 11,
-      "sourceType": "module"
-    }
+    "env": {
+      "jest/globals": true
+    },
+    "globals": {
+      "page": "readonly"
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts"
+        ],
+        "env": {
+          "es6": true
+        },
+        "extends": [
+          "airbnb-typescript/base"
+        ],
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+          "@typescript-eslint"
+        ],
+        "parserOptions": {
+          "ecmaVersion": 11,
+          "sourceType": "module",
+          "project": "./tsconfig.json"
+        },
+        "rules": {
+          "no-underscore-dangle": "off",
+          "@typescript-eslint/naming-convention": "off"
+        }
+      }
+    ]
   }
 }
