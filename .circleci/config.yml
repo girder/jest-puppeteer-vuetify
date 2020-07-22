@@ -1,28 +1,6 @@
 ---
   version: 2.1
   jobs:
-    lint:
-      docker:
-        - image: circleci/node:12
-      steps:
-        - checkout
-        - restore_cache:
-            name: Restore yarn package cache
-            keys:
-              - yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "jest-puppeteer-vuetify-test/yarn.lock"}}
-              - yarn-packages-{{ checksum "yarn.lock" }}
-              - yarn-packages-
-        - run:
-            name: Install dependencies
-            command: yarn install --frozen-lockfile
-        - save_cache:
-            name: Save yarn package cache
-            key: yarn-packages-{{ checksum "yarn.lock" }}
-            paths:
-              - ~/.cache/yarn
-        - run:
-            name: Lint project
-            command: yarn run lint
     build:
       docker:
         - image: circleci/node:12
@@ -45,6 +23,31 @@
         - run:
             name: Build project
             command: yarn run build
+    lint:
+      docker:
+        - image: circleci/node:12
+      steps:
+        - checkout
+        - restore_cache:
+            name: Restore yarn package cache
+            keys:
+              - yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "jest-puppeteer-vuetify-test/yarn.lock"}}
+              - yarn-packages-{{ checksum "yarn.lock" }}
+              - yarn-packages-
+        - run:
+            name: Install dependencies
+            command: yarn install --frozen-lockfile
+        - save_cache:
+            name: Save yarn package cache
+            key: yarn-packages-{{ checksum "yarn.lock" }}
+            paths:
+              - ~/.cache/yarn
+        - run:
+            name: Build project
+            command: yarn run build
+        - run:
+            name: Lint project
+            command: yarn run lint
     test:
       docker:
         - image: circleci/node:12-browsers
@@ -83,8 +86,10 @@
     version: 2
     ci:
       jobs:
-        - lint
         - build
+        - lint:
+            requires:
+              - build
         - test:
             requires:
               - build
