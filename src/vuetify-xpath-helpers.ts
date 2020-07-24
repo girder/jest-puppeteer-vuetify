@@ -131,7 +131,7 @@ export function defaultParam<T>(
   vFunction: (args: T) => XPath,
   param: keyof T,
 ) {
-  return (args?: number): XPath => {
+  return (args?: T | Strings): XPath => {
     if (typeof args === 'object' && !Array.isArray(args)) {
       return vFunction(args);
     }
