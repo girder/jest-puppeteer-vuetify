@@ -64,7 +64,8 @@ export function classAsPredicate(...classes: Strings[]): Predicate {
  * @param value the contents of the element
  */
 export function elementAsPredicate(name: string, element: string, value: Strings): Predicate {
-  return (value) ? `[.//*[@class="${name}__${element}"]${contentAsPredicate(value)}]` : '';
+  const className = `${name}__${element}`;
+  return (value) ? `[.//*${classAsPredicate(className)}${contentAsPredicate(value)}]` : '';
 }
 
 /**
@@ -130,7 +131,7 @@ export function defaultParam<T>(
   vFunction: (args: T) => XPath,
   param: keyof T,
 ) {
-  return (args?: T | Strings): XPath => {
+  return (args?: number): XPath => {
     if (typeof args === 'object' && !Array.isArray(args)) {
       return vFunction(args);
     }
