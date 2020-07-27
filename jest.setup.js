@@ -2,3 +2,4 @@
 
 // this shortens the page.waitForXPath timeout, which is what the jest helper uses
 page.setDefaultTimeout(1000);
+page.setDefaultNavigationTimeout(10000);
