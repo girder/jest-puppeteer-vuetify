@@ -138,6 +138,28 @@ function _vListItemGroup({
 }
 export const vListItemGroup = defaultParam(_vListItemGroup, 'items');
 
+/* TODO this is a Vuetify 1.5 component */
+function _vListTile({
+  content,
+  cssClass,
+  title,
+  subtitle,
+  action,
+  avatar,
+}: {
+  content?: Strings,
+  cssClass?: Strings,
+  title?: Strings,
+  subtitle?: Strings,
+  action?: Strings,
+  avatar?: Strings,
+}): XPath {
+  return `//*${classAsPredicate('v-list__tile', cssClass)}${elementsAsPredicate('v-list__tile', {
+    content, title, 'sub-title': subtitle, action, avatar,
+  })}`;
+}
+export const vListTile = defaultParam(_vListTile, 'content');
+
 function _vTextarea({ label, cssClass }: { label?: Strings, cssClass?: Strings }): XPath {
   return `//*${classAsPredicate('v-textarea', cssClass)}//*[label[contains(text(),"${label}")]]//textarea`;
 }
