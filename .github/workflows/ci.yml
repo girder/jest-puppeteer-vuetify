@@ -1,0 +1,46 @@
+name: ci
+on:
+  push:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --prefer-offline
+
+      - name: Build project
+        run: yarn run build
+
+      - name: Lint project
+        run: yarn run lint --no-fix
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile --prefer-offline
+          yarn --cwd ./jest-puppeteer-vuetify-test install --frozen-lockfile --prefer-offline
+
+      - name: Build project
+        run: yarn run build
+
+      - name: Run tests
+        run: |
+          yarn --cwd ./jest-puppeteer-vuetify-test run serve &
+          while ! nc -z localhost 7922; do
+            sleep 5
+          done
+          yarn run test
