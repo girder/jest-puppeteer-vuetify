@@ -1,4 +1,8 @@
 # jest-puppeteer-vuetify
+
+:warning::warning:	**This library is deprecated and does not work with the latest version of Vuetify.** :warning::warning:	
+
+
 This is a utility which both makes it easier to use XPaths with jest and puppeteer, and generates XPaths to locate Vuetify components.
 
 ## Installation
